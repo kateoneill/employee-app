@@ -1,3 +1,5 @@
+import kotlin.math.round
+
 val firstName = "Joe"
 val surname = "Soap"
 val gender = "m"
@@ -10,8 +12,6 @@ val cycleDeduction = 54.33
 
 fun main(args: Array<String>) {
     payslip()
-    println("\n Rounded payslip follows:\n")
-    roundedPayslip()
 }
 
 fun payslip() {
@@ -23,62 +23,31 @@ fun payslip() {
     val totalDeduct = paye + prsi + cycleDeduction
     val netPay = grossSal - totalDeduct
 
-    println("---------------------------------------------------------------------------------")
-    println("|\t\t\t\t\t\t\t\tMonthly Payslip\t\t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|\t Employee Name:\t ${firstName.uppercase()} ${surname.uppercase()} ${gender.uppercase()}\t\t\t\t\t\t\t\t Employee ID: $employeeId\t|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|\t PAYMENT DETAILS\t\t\t\t\t\t DEDUCTION DETAILS\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\t Salary: $month \t\t\t\t PAYE: $paye \t\t\t|")
-    println("|\t Bonus:  $bonus\t\t\t\t\t\t PRSI: $prsi \t\t\t|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t Cycle To work: $cycleDeduction\t\t\t\t|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\tGross: $grossSal \t\t\t\tTotal Deductions: $totalDeduct |")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\t\t\t\t\t\t NET PAY:$netPay \t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
+    println(
+        """
+        
+        							     Monthly Payslip	
+        								                                                                        																		
+        	 Employee Name:	 ${firstName.uppercase()} ${surname.uppercase()} ${gender.uppercase()}								 Employee ID: $employeeId
+        |-------------------------------------------------------------------------------|
+        |	 PAYMENT DETAILS						 				                    |
+        |-------------------------------------------------------------------------------|
+             Salary: ${twoDec(month)} 				 		
+        	 Bonus:  ${twoDec(bonus)}		
+        	                                                    Gross: ${twoDec(grossSal)}
+        										 				
+        																			
+        |-------------------------------------------------------------------------------|																			
+        |  DEDUCTION DETAILS	                                                        |
+        |-------------------------------------------------------------------------------|
+           PAYE: ${twoDec(paye)} 	
+           PRSI: ${twoDec(prsi)} 
+           Cycle To work: $cycleDeduction
+                                                    Total Deductions: ${twoDec(totalDeduct)}
+         
+        						                                NET PAY:${twoDec(netPay)} 							
+    """
+    )
 }
 
-fun roundedPayslip() {
-    val month = grossSalary/12
-    val paye = month * payePercent/100
-    val bonus = annualBonus/12
-    val prsi = month * prsiPercent/100
-    val grossSal = month + bonus
-    val totalDeduct = paye + prsi + cycleDeduction
-    val netPay = grossSal - totalDeduct
-
-    println("---------------------------------------------------------------------------------")
-    println("|\t\t\t\t\t\t\t\tMonthly Payslip\t\t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|\t Employee Name:\t ${firstName.uppercase()}${surname.uppercase()} ${gender.uppercase()}\t\t\t\t\t\t\t\t Employee ID: $employeeId\t|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|\t PAYMENT DETAILS\t\t\t\t\t\tDEDUCTION DETAILS\t\t\t\t\t|")
-    println("|--------------- ----------------------------------------------------------------|")
-    println("|\t Salary: "+"%.2f".format(month)+"\t\t\t\t\t\t"+"PAYE: "+"%.2f".format(paye)+"\t\t\t\t\t\t|")
-    println("|\t Bonus:  "+"%.2f".format(bonus)+"\t\t\t\t\t\t\t"+"PRSI: "+"%.2f".format(prsi)+"\t\t\t\t\t\t|")
-    println("|\t\t\t\t\t\t\t\t\t\t\tCycle To work: $cycleDeduction \t\t\t\t|")
-    println("|\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\tGross: "+"%.2f".format(grossSal)+"\t\t\t\t\t\t\tTotal Deductions: "+"%.2f".format(totalDeduct)+"\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-    println("|\t\t\t\t\t\t\t NET PAY:"+"%.2f".format(netPay)+"\t\t\t\t\t\t\t\t\t|")
-    println("|-------------------------------------------------------------------------------|")
-}
-
-fun monthlySalary(sal : Double) {
-    val salary = sal
-    val monthlySalary = salary/12
-
-    print(monthlySalary)
-}
-
-
+fun twoDec(number: Double) = round(number * 100) / 100
