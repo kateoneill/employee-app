@@ -11,20 +11,18 @@ val annualBonus = 1450.50
 val cycleDeduction = 54.33
 
 fun main(args: Array<String>) {
-    payslip()
+    println(getFullName())
+    println("Monthly Salary: ${getMonthlySalary()}")
+    println("Monthly PRSI: ${getMonthlyPRSI()}")
+    println("Monthly PAYE: ${getMonthlyPAYE()}")
+    println("Monthly Gross Pay: ${getGrossMonthlyPay()}")
+    println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
+    println("Monthly Net Pay: ${getNetMonthlyPay()}")
+    println(getPayslip())
 }
 
-fun payslip() {
-    val month = grossSalary/12
-    val paye = month * payePercent/100
-    val bonus = annualBonus/12
-    val prsi = month * prsiPercent/100
-    val grossSal = month + bonus
-    val totalDeduct = paye + prsi + cycleDeduction
-    val netPay = grossSal - totalDeduct
-
-    println(
-        """
+fun getPayslip(): String {
+        return """
         
         							     Monthly Payslip	
         								                                                                        																		
@@ -32,22 +30,37 @@ fun payslip() {
         |-------------------------------------------------------------------------------|
         |	 PAYMENT DETAILS						 				                    |
         |-------------------------------------------------------------------------------|
-             Salary: ${twoDec(month)} 				 		
-        	 Bonus:  ${twoDec(bonus)}		
-        	                                                    Gross: ${twoDec(grossSal)}
+             Salary: ${getMonthlySalary()}				 		
+        	 Bonus:  ${getBonus()}		
+        	                                                    Gross: ${getGrossMonthlyPay()}
         										 				
         																			
         |-------------------------------------------------------------------------------|																			
         |  DEDUCTION DETAILS	                                                        |
         |-------------------------------------------------------------------------------|
-           PAYE: ${twoDec(paye)} 	
-           PRSI: ${twoDec(prsi)} 
+           PAYE: ${getMonthlyPAYE()} 	
+           PRSI: ${getMonthlyPRSI()} 
            Cycle To work: $cycleDeduction
-                                                    Total Deductions: ${twoDec(totalDeduct)}
+                                                    Total Deductions: ${getTotalMonthlyDeductions()}
          
-        						                                NET PAY:${twoDec(netPay)} 							
+        						                                NET PAY:${getNetMonthlyPay()} 							
     """
-    )
 }
 
 fun twoDec(number: Double) = round(number * 100) / 100
+
+fun title(obj: String) = when(obj) {
+    "m" -> "Mr"
+    "f" -> "Ms"
+    else -> {"Mx"}
+}
+
+fun getFullName() = "${title(gender)} $firstName $surname"
+
+fun getMonthlySalary() = twoDec(grossSalary/12)
+fun getMonthlyPRSI() = twoDec(getMonthlySalary() * prsiPercent/100)
+fun getBonus() = twoDec(annualBonus/12)
+fun getMonthlyPAYE() = twoDec(getMonthlySalary() * payePercent/100)
+fun getGrossMonthlyPay() = twoDec(getMonthlySalary() + annualBonus/12)
+fun getTotalMonthlyDeductions() = twoDec( getMonthlyPAYE() + getMonthlyPAYE() + cycleDeduction)
+fun getNetMonthlyPay() = twoDec(getGrossMonthlyPay()- getTotalMonthlyDeductions())
