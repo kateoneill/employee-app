@@ -1,17 +1,8 @@
 import kotlin.math.round
 
-val firstName = "Joe"
-val surname = "Soap"
-val gender = "m"
-val employeeId = "6143"
-val grossSalary = 67543.21
-val payePercent = 38.5
-val prsiPercent = 5.2
-val annualBonus = 1450.50
-val cycleDeduction = 54.33
+var employee =  Employee("Joe", "Soap", 'm', 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
 
 fun main(args: Array<String>){
-
     var input : Int
 
     do {
@@ -19,7 +10,7 @@ fun main(args: Array<String>){
         when(input) {
             1 -> println("Monthly Salary: ${getMonthlySalary()}")
             2 -> println("Monthly PRSI: ${getMonthlyPRSI()}")
-            3 ->println("Monthly PAYE: ${getMonthlyPAYE()}")
+            3 -> println("Monthly PAYE: ${getMonthlyPAYE()}")
             4 -> println("Monthly Gross Pay: ${getGrossMonthlyPay()}")
             5 -> println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
             6 -> println("Monthly Net Pay: ${getNetMonthlyPay()}")
@@ -36,7 +27,7 @@ fun getPayslip(): String {
         
         							     Monthly Payslip	
         								                                                                        																		
-        	 Employee Name:	 ${firstName.uppercase()} ${surname.uppercase()} ${gender.uppercase()}								 Employee ID: $employeeId
+        	 Employee Name:	 ${employee.firstName.uppercase()} ${employee.surname.uppercase()} ${employee.gender.uppercase()}								 Employee ID: $employee.employeeid
         |-------------------------------------------------------------------------------|
         |	 PAYMENT DETAILS						 				                    |
         |-------------------------------------------------------------------------------|
@@ -50,7 +41,7 @@ fun getPayslip(): String {
         |-------------------------------------------------------------------------------|
            PAYE: ${getMonthlyPAYE()} 	
            PRSI: ${getMonthlyPRSI()} 
-           Cycle To work: $cycleDeduction
+           Cycle To work: $employee.cycleDeduction
                                                     Total Deductions: ${getTotalMonthlyDeductions()}
          
         						                                NET PAY:${getNetMonthlyPay()} 							
@@ -59,20 +50,20 @@ fun getPayslip(): String {
 
 fun twoDec(number: Double) = round(number * 100) / 100
 
-fun title(obj: String) = when(obj) {
-    "m" -> "Mr"
-    "f" -> "Ms"
-    else -> {"Mx"}
+fun getFullName(): String {
+    return when (employee.gender){
+        'm', 'M' -> "Mr. ${employee.firstName} ${employee.surname}"
+        'f', 'F' -> "Ms.  ${employee.firstName} ${employee.surname}"
+        else ->  "${employee.firstName} ${employee.surname}"
+    }
 }
 
-fun getFullName() = "${title(gender)} $firstName $surname"
-
-fun getMonthlySalary() = twoDec(grossSalary/12)
-fun getMonthlyPRSI() = twoDec(getMonthlySalary() * prsiPercent/100)
-fun getBonus() = twoDec(annualBonus/12)
-fun getMonthlyPAYE() = twoDec(getMonthlySalary() * payePercent/100)
-fun getGrossMonthlyPay() = twoDec(getMonthlySalary() + annualBonus/12)
-fun getTotalMonthlyDeductions() = twoDec( getMonthlyPAYE() + getMonthlyPAYE() + cycleDeduction)
+fun getMonthlySalary() = twoDec(employee.grossSalary/12)
+fun getMonthlyPRSI() = twoDec(getMonthlySalary() * employee.prsiPercentage/100)
+fun getBonus() = twoDec( employee.annualBonus/12)
+fun getMonthlyPAYE() = twoDec(getMonthlySalary() * employee.payePercentage/100)
+fun getGrossMonthlyPay() = twoDec(getMonthlySalary() + employee.annualBonus/12)
+fun getTotalMonthlyDeductions() = twoDec( getMonthlyPAYE() + getMonthlyPAYE() + employee.cycleDeduction)
 fun getNetMonthlyPay() = twoDec(getGrossMonthlyPay()- getTotalMonthlyDeductions())
 
 fun menu() : Int {
