@@ -1,3 +1,7 @@
+package models
+
+import twoDec
+
 class Employee (
     var firstName: String, var surname: String, var gender: Char, var employeeID: Int,
     var grossSalary: Double, var payePercentage: Double, var prsiPercentage: Double,
@@ -12,20 +16,20 @@ class Employee (
         }
     }
 
-    fun getMonthlySalary() = twoDec(grossSalary/12)
-    fun getMonthlyPRSI() = twoDec(getMonthlySalary() * prsiPercentage/100)
-    fun getBonus() = twoDec( annualBonus/12)
-    fun getMonthlyPAYE() = twoDec(getMonthlySalary() * payePercentage/100)
-    fun getGrossMonthlyPay() = twoDec(getMonthlySalary() + annualBonus/12)
-    fun getTotalMonthlyDeductions() = twoDec( getMonthlyPAYE() + getMonthlyPAYE() + cycleDeduction)
-    fun getNetMonthlyPay() = twoDec(getGrossMonthlyPay()- getTotalMonthlyDeductions())
+    fun getMonthlySalary() = twoDec(grossSalary / 12)
+    fun getMonthlyPRSI() = twoDec(getMonthlySalary() * prsiPercentage / 100)
+    fun getBonus() = twoDec(annualBonus / 12)
+    fun getMonthlyPAYE() = twoDec(getMonthlySalary() * payePercentage / 100)
+    fun getGrossMonthlyPay() = twoDec(getMonthlySalary() + annualBonus / 12)
+    fun getTotalMonthlyDeductions() = twoDec(getMonthlyPAYE() + getMonthlyPAYE() + cycleDeduction)
+    fun getNetMonthlyPay() = twoDec(getGrossMonthlyPay() - getTotalMonthlyDeductions())
 
     fun getPayslip(): String {
         return """
         
         							     Monthly Payslip	
         								                                                                        																		
-        	 Employee Name:	 ${firstName.uppercase()} ${surname.uppercase()} ${gender.uppercase()}								 Employee ID: $employeeID
+        	 models.Employee Name:	 ${firstName.uppercase()} ${surname.uppercase()} ${gender.uppercase()}								 models.Employee ID: $employeeID
         |-------------------------------------------------------------------------------|
         |	 PAYMENT DETAILS						 				                    |
         |-------------------------------------------------------------------------------|
@@ -47,6 +51,6 @@ class Employee (
     }
 
     override fun toString(): String {
-        return "Employee(firstName='$firstName', surname='$surname', gender=$gender, employeeID=$employeeID, grossSalary=$grossSalary, payePercentage=$payePercentage, prsiPercentage=$prsiPercentage, annualBonus=$annualBonus, cycleToWorkMonthlyDeduction=$cycleDeduction)"
+        return "models.Employee(firstName='$firstName', surname='$surname', gender=$gender, employeeID=$employeeID, grossSalary=$grossSalary, payePercentage=$payePercentage, prsiPercentage=$prsiPercentage, annualBonus=$annualBonus, cycleToWorkMonthlyDeduction=$cycleDeduction)"
     }
 }

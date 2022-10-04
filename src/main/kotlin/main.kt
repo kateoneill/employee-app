@@ -1,8 +1,13 @@
+import controllers.EmployeeAPI
+import models.Employee
+import mu.KotlinLogging
 import kotlin.math.round
 
 var employees = EmployeeAPI()
+val logger = KotlinLogging.logger {}
 
 fun main(args: Array<String>){
+    logger.info { "Launching models.Employee App" }
     start()
 }
 
@@ -10,11 +15,11 @@ fun twoDec(number: Double) = round(number * 100) / 100
 
 fun menu() : Int {
     print(""" 
-         |Employee Menu
-         |   1. Add Employee
+         |models.Employee Menu
+         |   1. Add models.Employee
          |   2. List All Employees
          |   3. Search Employees 
-         |   4. Print Payslip for Employee
+         |   4. Print Payslip for models.Employee
          |  -1. Exit
          |       
          |Enter Option : """.trimMargin())
@@ -22,6 +27,7 @@ fun menu() : Int {
 }
 
 fun add(){
+    logger.info{"You are adding an employee"}
     print("Enter first name: ")
     val firstName = readLine().toString()
     print("Enter surname: ")
@@ -61,11 +67,13 @@ fun start() {
 }
 
 fun list(){
+    logger.info{"You are listing all employees"}
     employees.findAll()
         .forEach{ println(it) }
 }
 
 fun search() {
+    logger.info{"You are searching for an employee"}
     val employee = getEmployeeById()
     if (employee == null)
         println("No employee found")
@@ -80,6 +88,7 @@ internal fun getEmployeeById(): Employee? {
 }
 
 fun paySlip(){
+    logger.info{"You are printing a payslip for an employee"}
     val employee = getEmployeeById()
     if (employee != null)
         println(employee.getPayslip())
