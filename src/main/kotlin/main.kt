@@ -14,16 +14,25 @@ fun main(args: Array<String>){
 fun twoDec(number: Double) = round(number * 100) / 100
 
 fun menu() : Int {
+    //https://discuss.kotlinlang.org/t/printing-in-colors/22492
+    val magenta = "\u001b[35m"
+    val cyan = "\u001b[36m"
+    val yellow = "\u001b[33;1m"
+    val reset = "\u001b[0m"
+
     print(""" 
          |models.Employee Menu
-         |   1. Add models.Employee
-         |   2. List All Employees
-         |   3. Search Employees 
-         |   4. Print Payslip for models.Employee
-         |   5. Delete Employee
-         |  -1. Exit
-         |       
-         |Enter Option : """.trimMargin())
+         |  $magenta _____________________________________________ $reset
+         |  $magenta | $reset       $yellow WHAT DO YOU WANT TO DO? $reset         $magenta | $reset
+         |  $magenta |___________________________________________| $reset
+         |  $magenta | $reset $cyan [1] Add models.Employee   $reset             $magenta | $reset
+         |  $magenta | $reset $cyan [2] List All Employees     $reset            $magenta | $reset
+         |  $magenta | $reset $cyan [3] Search Employees   $reset                $magenta | $reset
+         |  $magenta | $reset $cyan [4] Print Payslip for models.Employee $reset $magenta | $reset
+         |  $magenta | $reset $cyan [5] Delete Employee $reset                   $magenta | $reset
+         |  $magenta | $reset $cyan [-1] Exit  $reset                            $magenta | $reset
+         |  $magenta |___________________________________________| $reset
+         | $yellow Enter Option : $reset """.trimMargin())
     return readLine()!!.toInt()
 }
 
@@ -61,21 +70,21 @@ fun start() {
             4 -> paySlip()
             5 -> remove()
             -99 -> dummyData()
-            -1 -> println("Exiting App")
-            else -> println("Invalid Option")
+            -1 -> logger.info{"You are exiting the app, bye bye 👋"}
+            else -> logger.info{"☹️Try a different option, this one doesn't work!"}
         }
         println()
     } while (input != -1)
 }
 
 fun list(){
-    logger.info{"You are listing all employees"}
+    logger.info{"You are listing all employees 👥"}
     employees.findAll()
         .forEach{ println(it) }
 }
 
 fun search() {
-    logger.info{"You are searching for an employee"}
+    logger.info{"You are searching for an employee 👤"}
     val employee = getEmployeeById()
     if (employee == null)
         println("No employee found")
@@ -100,13 +109,21 @@ fun remove(){
     logger.info{"You are removing an employee"}
     val employee = getEmployeeById()
     if (employee == null)
-        println("No employee found")
+        println("That employee can not be found")
     else
         employees.remove(employee)
+            if (employee != null) {
+                logger.info{"You are removing ${employee.getFullName()}"}
+            }
 }
 
 fun dummyData() {
     employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
     employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
     employees.create(Employee("Mary", "Quinn", 'f', 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+    employees.create(Employee("Lisa", "O'Neill", 'f', 0, 100000.44, 45.0, 9.0, 0.0, 0.0))
+    employees.create(Employee("Mark", "Roche", 'm', 0, 19500.00, 10.0, 8.5, 10000.0, 19.90))
+    employees.create(Employee("Lizzie", "Grogan", 'f', 0, 29000.90, 30.0, 8.2, 2400.0, 140.0))
+    employees.create(Employee("Tia", "McLoughlin", 'f', 0, 15000.87, 25.0, 8.1, 45.0, 99.0))
+    employees.create(Employee("David", "Quinn", 'm', 0, 88909.89, 45.0, 8.7, 490.0, 70.0))
 }
