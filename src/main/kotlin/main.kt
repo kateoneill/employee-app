@@ -30,6 +30,8 @@ fun menu() : Int {
          |  $magenta | $reset $cyan [3] Search Employees   $reset                $magenta | $reset
          |  $magenta | $reset $cyan [4] Print Payslip for models.Employee $reset $magenta | $reset
          |  $magenta | $reset $cyan [5] Delete Employee $reset                   $magenta | $reset
+         |  $magenta | $reset $cyan [6] Get employee by Salary $reset            $magenta | $reset
+         |  $magenta | $reset $cyan [7] Count Employees     $reset               $magenta | $reset
          |  $magenta | $reset $cyan [-1] Exit  $reset                            $magenta | $reset
          |  $magenta |___________________________________________| $reset
          | $yellow Enter Option : $reset """.trimMargin())
@@ -69,6 +71,8 @@ fun start() {
             3 -> search()
             4 -> paySlip()
             5 -> remove()
+            6 -> salarySearch()
+            7 -> countEmployees()
             -99 -> dummyData()
             -1 -> logger.info{"You are exiting the app, bye bye 👋"}
             else -> logger.info{"☹️Try a different option, this one doesn't work!"}
@@ -98,6 +102,17 @@ internal fun getEmployeeById(): Employee? {
     return employees.findOne(employeeID)
 }
 
+fun salarySearch() {
+    logger.info{"You are searching for an employee by salary 👤"}
+    val salary = getEmployeeBySalary()
+    println(salary)
+}
+internal fun getEmployeeBySalary(): Employee? {
+    print("Enter a salary to search by: ")
+    val salary = readLine()!!.toDouble()
+    return employees.findAllSalary(salary)
+}
+
 fun paySlip(){
     logger.info{"You are printing a payslip for an employee"}
     val employee = getEmployeeById()
@@ -105,6 +120,13 @@ fun paySlip(){
         println(employee.getPayslip())
 }
 
+//count from: https://www.cosmiclearn.com/kotlin/arraylist.php
+fun countEmployees(){
+    logger.info{"We are counting our employees"}
+    println("Number of employees= ${employees.count()}")
+}
+
+//remove employee
 fun remove(){
     logger.info{"You are removing an employee"}
     val employee = getEmployeeById()

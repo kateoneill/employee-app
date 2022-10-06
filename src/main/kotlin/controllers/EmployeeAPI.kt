@@ -33,5 +33,10 @@ class EmployeeAPI {
         return count
     }
 
+    fun findAllSalary(salary: Double): Employee? {
+        return employees.find {
+                s -> s.grossSalary == salary
+        }
+    }
 
 }
