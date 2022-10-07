@@ -53,6 +53,23 @@ class Employee (
     """
     }
 
+    fun getReducedPayslip(): String {
+        return """
+        
+        Monthly Payslip	for ${getFullName()} [${gender.uppercase()}]     ID: $employeeID
+        |--------------------------------------|
+        |	 PAYMENT DETAILS				   |
+        |--------------------------------------|	
+            Gross: ${getGrossMonthlyPay()}																	
+        |--------------------------------------|																			
+        |  DEDUCTION DETAILS	               |
+        |--------------------------------------|
+         Total Deductions: ${getTotalMonthlyDeductions()}
+         --------------------------------------
+         NET PAY:${getNetMonthlyPay()} 							
+    """
+    }
+
     override fun toString(): String {
         return "$cyan~~~~~~~~~~~~~~~\nEmployee #$employeeID \n~~~~~~~~~~~~~~~ $reset\n$magenta Name $reset : $firstName $surname [$gender] \n$magenta Gross Salary $reset : $grossSalary, $magenta Paye Percentage $reset: $payePercentage, $magenta PRSI Percentage $reset : $prsiPercentage, $magenta Bonus $reset : $annualBonus, $magenta Cycle to work deduction $reset : $cycleDeduction"
     }

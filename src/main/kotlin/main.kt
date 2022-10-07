@@ -36,6 +36,7 @@ fun menu() : Int {
          |  $magenta | $reset $cyan [6] Get employee by Salary $reset            $magenta | $reset
          |  $magenta | $reset $cyan [7] Count Employees     $reset               $magenta | $reset
          |  $magenta | $reset $cyan [8] Sort by bonus     $reset                 $magenta | $reset
+         |  $magenta | $reset $cyan [9] Reduced Payslip     $reset               $magenta | $reset
          |  $magenta | $reset $cyan [-1] Exit  $reset                            $magenta | $reset
          |  $magenta |___________________________________________| $reset
          | $yellow Enter Option >> $reset """.trimMargin())
@@ -78,6 +79,7 @@ fun start() {
             6 -> salarySearch()
             7 -> countEmployees()
             8 -> sortBonus()
+            9 -> reducedPaySlip()
             -99 -> dummyData()
             -1 -> logger.info{"You are exiting the app, bye bye 👋"}
             else -> logger.info{"☹️Try a different option, this one doesn't work!"}
@@ -187,6 +189,13 @@ fun sortBonusDesc() {
     employees.sortByBonusDesc().forEach{ println(it) }
 }
 
+// reduced payslip
+fun reducedPaySlip(){
+    logger.info{"You are printing a reduced payslip for an employee 🧾"}
+    val employee = getEmployeeById()
+    if (employee != null)
+        println(employee.getReducedPayslip())
+}
 
 fun dummyData() {
     employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
