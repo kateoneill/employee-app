@@ -148,9 +148,45 @@ fun remove(){
 //sort employees by bonus
 //sorting code found @ https://www.bezkoder.com/kotlin-sort-list-objects/
 fun sortBonus() {
-    logger.info{"We are now sorting employees by bonus 💸"}
-    employees.sortByBonus().forEach{ println(it) }
+    var input: Int
+
+    do {
+        input = bonusMenu()
+        when (input) {
+            1 -> sortBonusAsc()
+            2 -> sortBonusDesc()
+            -1 -> start()
+            else -> logger.info{"☹️Try a different option, this one doesn't work!"}
+        }
+        println()
+    } while (input != -1)
 }
+
+fun bonusMenu(): Int {
+    print(
+        """
+    |$magenta |-----------------------------------------------------------------------| $reset
+    |$magenta | $reset$yellow You are in the bonus sorting menu! $reset                                 $magenta | $reset
+    |$magenta | $reset$yellow Choose from these options: $reset                                         $magenta | $reset
+    |$magenta |-----------------------------------------------------------------------| $reset
+    |$magenta | $reset $cyan Press 1 to sort in ascending order (smallest bonus to largest)   $reset  $magenta | $reset
+    |$magenta | $reset $cyan Press 2 to sort in descending order (largest bonus to smallest)   $reset $magenta | $reset
+    |$magenta | $reset $cyan Press -1 to go back to employee menu                              $reset $magenta | $reset
+    |$yellow Choose your option -> $reset"""
+            .trimMargin())
+    return readLine()!!.toInt()
+}
+
+fun sortBonusAsc() {
+    logger.info{"We are now sorting employees by bonus from smallest to largest 💸"}
+    employees.sortByBonusAsc().forEach{ println(it) }
+}
+
+fun sortBonusDesc() {
+    logger.info{"We are now sorting employees by bonus from largest to smallest 💸"}
+    employees.sortByBonusDesc().forEach{ println(it) }
+}
+
 
 fun dummyData() {
     employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))

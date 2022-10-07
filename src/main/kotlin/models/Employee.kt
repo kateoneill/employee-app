@@ -54,6 +54,6 @@ class Employee (
     }
 
     override fun toString(): String {
-        return "$cyan Employee #$employeeID \n ~~~~~~~~~~~~~~~ $reset\n$magenta Name $reset : $firstName $surname [$gender] \n$magenta Gross Salary $reset : $grossSalary, $magenta Paye Percentage $reset: $payePercentage, $magenta PRSI Percentage $reset : $prsiPercentage, $magenta Bonus $reset : $annualBonus, $magenta Cycle to work deduction $reset : $cycleDeduction"
+        return "$cyan~~~~~~~~~~~~~~~\nEmployee #$employeeID \n~~~~~~~~~~~~~~~ $reset\n$magenta Name $reset : $firstName $surname [$gender] \n$magenta Gross Salary $reset : $grossSalary, $magenta Paye Percentage $reset: $payePercentage, $magenta PRSI Percentage $reset : $prsiPercentage, $magenta Bonus $reset : $annualBonus, $magenta Cycle to work deduction $reset : $cycleDeduction"
     }
 }

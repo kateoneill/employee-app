@@ -39,8 +39,13 @@ class EmployeeAPI {
         }
     }
 
-    fun sortByBonus(): List<Employee> {
+    fun sortByBonusAsc(): List<Employee> {
         val bonusEmployees = employees.sortedBy{it.annualBonus}
+        return bonusEmployees
+    }
+
+    fun sortByBonusDesc(): List<Employee> {
+        val bonusEmployees = employees.sortedByDescending{it.annualBonus}
         return bonusEmployees
     }
 }
