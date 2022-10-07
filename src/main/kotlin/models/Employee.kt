@@ -1,6 +1,9 @@
 package models
 
 import twoDec
+import magenta
+import reset
+import cyan
 
 class Employee (
     var firstName: String, var surname: String, var gender: Char, var employeeID: Int,
@@ -51,6 +54,6 @@ class Employee (
     }
 
     override fun toString(): String {
-        return "models.Employee(firstName='$firstName', surname='$surname', gender=$gender, employeeID=$employeeID, grossSalary=$grossSalary, payePercentage=$payePercentage, prsiPercentage=$prsiPercentage, annualBonus=$annualBonus, cycleToWorkMonthlyDeduction=$cycleDeduction)"
+        return "$cyan Employee #$employeeID \n ~~~~~~~~~~~~~~~ $reset\n$magenta Name $reset : $firstName $surname [$gender] \n$magenta Gross Salary $reset : $grossSalary, $magenta Paye Percentage $reset: $payePercentage, $magenta PRSI Percentage $reset : $prsiPercentage, $magenta Bonus $reset : $annualBonus, $magenta Cycle to work deduction $reset : $cycleDeduction"
     }
 }

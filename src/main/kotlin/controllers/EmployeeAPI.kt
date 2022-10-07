@@ -39,4 +39,8 @@ class EmployeeAPI {
         }
     }
 
+    fun sortByBonus(): List<Employee> {
+        val bonusEmployees = employees.sortedBy{it.annualBonus}
+        return bonusEmployees
+    }
 }

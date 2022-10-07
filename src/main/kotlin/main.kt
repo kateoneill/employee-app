@@ -6,22 +6,25 @@ import kotlin.math.round
 var employees = EmployeeAPI()
 val logger = KotlinLogging.logger {}
 
+//https://discuss.kotlinlang.org/t/printing-in-colors/22492
+val magenta = "\u001b[35m"
+val cyan = "\u001b[36m"
+val yellow = "\u001b[33m"
+val reset = "\u001b[0m"
+
 fun main(args: Array<String>){
-    logger.info { "Launching models.Employee App" }
+    logger.info { "🚀Launching models.Employee App 🚀" }
     start()
 }
 
 fun twoDec(number: Double) = round(number * 100) / 100
 
 fun menu() : Int {
-    //https://discuss.kotlinlang.org/t/printing-in-colors/22492
-    val magenta = "\u001b[35m"
-    val cyan = "\u001b[36m"
-    val yellow = "\u001b[33;1m"
-    val reset = "\u001b[0m"
 
     print(""" 
-         |models.Employee Menu
+         |   - - - - - - - - - - - - - - - - - - - - - - -
+         |              👩‍💻models.Employee Menu👨‍💻
+         |   - - - - - - - - - - - - - - - - - - - - - - -
          |  $magenta _____________________________________________ $reset
          |  $magenta | $reset       $yellow WHAT DO YOU WANT TO DO? $reset         $magenta | $reset
          |  $magenta |___________________________________________| $reset
@@ -32,14 +35,15 @@ fun menu() : Int {
          |  $magenta | $reset $cyan [5] Delete Employee $reset                   $magenta | $reset
          |  $magenta | $reset $cyan [6] Get employee by Salary $reset            $magenta | $reset
          |  $magenta | $reset $cyan [7] Count Employees     $reset               $magenta | $reset
+         |  $magenta | $reset $cyan [8] Sort by bonus     $reset                 $magenta | $reset
          |  $magenta | $reset $cyan [-1] Exit  $reset                            $magenta | $reset
          |  $magenta |___________________________________________| $reset
-         | $yellow Enter Option : $reset """.trimMargin())
+         | $yellow Enter Option >> $reset """.trimMargin())
     return readLine()!!.toInt()
 }
 
 fun add(){
-    logger.info{"You are adding an employee"}
+    logger.info{"You are adding an employee 👤"}
     print("Enter first name: ")
     val firstName = readLine().toString()
     print("Enter surname: ")
@@ -73,6 +77,7 @@ fun start() {
             5 -> remove()
             6 -> salarySearch()
             7 -> countEmployees()
+            8 -> sortBonus()
             -99 -> dummyData()
             -1 -> logger.info{"You are exiting the app, bye bye 👋"}
             else -> logger.info{"☹️Try a different option, this one doesn't work!"}
@@ -80,6 +85,7 @@ fun start() {
         println()
     } while (input != -1)
 }
+
 
 fun list(){
     logger.info{"You are listing all employees 👥"}
@@ -91,30 +97,30 @@ fun search() {
     logger.info{"You are searching for an employee 👤"}
     val employee = getEmployeeById()
     if (employee == null)
-        println("No employee found")
+        println("🚫No employee found")
     else
         println(employee)
 }
 
 internal fun getEmployeeById(): Employee? {
-    print("Enter the employee id to search by: ")
+    print("🔎Enter the employee id to search by: ")
     val employeeID = readLine()!!.toInt()
     return employees.findOne(employeeID)
 }
 
 fun salarySearch() {
-    logger.info{"You are searching for an employee by salary 👤"}
+    logger.info{"You are searching for an employee by salary 💰"}
     val salary = getEmployeeBySalary()
     println(salary)
 }
 internal fun getEmployeeBySalary(): Employee? {
-    print("Enter a salary to search by: ")
+    print("🔎Enter a salary to search by: ")
     val salary = readLine()!!.toDouble()
     return employees.findAllSalary(salary)
 }
 
 fun paySlip(){
-    logger.info{"You are printing a payslip for an employee"}
+    logger.info{"You are printing a payslip for an employee 🧾"}
     val employee = getEmployeeById()
     if (employee != null)
         println(employee.getPayslip())
@@ -122,21 +128,28 @@ fun paySlip(){
 
 //count from: https://www.cosmiclearn.com/kotlin/arraylist.php
 fun countEmployees(){
-    logger.info{"We are counting our employees"}
+    logger.info{"We are counting our employees 🔢"}
     println("Number of employees= ${employees.count()}")
 }
 
 //remove employee
 fun remove(){
-    logger.info{"You are removing an employee"}
+    logger.info{"You are removing an employee ❌"}
     val employee = getEmployeeById()
     if (employee == null)
         println("That employee can not be found")
     else
         employees.remove(employee)
             if (employee != null) {
-                logger.info{"You are removing ${employee.getFullName()}"}
+                logger.info{"⚰️You are removing ${employee.getFullName()}"}
             }
+}
+
+//sort employees by bonus
+//sorting code found @ https://www.bezkoder.com/kotlin-sort-list-objects/
+fun sortBonus() {
+    logger.info{"We are now sorting employees by bonus 💸"}
+    employees.sortByBonus().forEach{ println(it) }
 }
 
 fun dummyData() {
