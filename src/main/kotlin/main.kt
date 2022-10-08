@@ -200,6 +200,7 @@ fun reducedPaySlip(){
 }
 
 //employee search menu
+//filter code help from : https://kotlinlang.org/docs/collection-filtering.html#test-predicates
 fun searchForEmployee(){
     var input: Int
 
@@ -208,6 +209,8 @@ fun searchForEmployee(){
         when (input) {
             1 -> searchByFirstName()
             2 -> searchBySurname()
+            3 -> beginWithL()
+            4 -> beginWithWhatever()
             -1 -> start()
             else -> logger.info{"☹️Try a different option, this one doesn't work!"}
         }
@@ -224,6 +227,8 @@ fun filterNameMenu(): Int {
     |$magenta |-----------------------------------------------------------------------| $reset
     |$magenta | $reset $cyan Press 1 to filter by first name   $reset                                 $magenta | $reset
     |$magenta | $reset $cyan Press 2 to filter by surname   $reset                                    $magenta | $reset
+    |$magenta | $reset $cyan Press 3 to filter names beginning with L  $reset                         $magenta | $reset
+    |$magenta | $reset $cyan Press 4 to filter names beginning with a letter of your choice  $reset   $magenta | $reset
     |$magenta | $reset $cyan Press -1 to go back to employee menu                              $reset $magenta | $reset
     |$yellow Choose your option -> $reset"""
             .trimMargin())
@@ -235,7 +240,7 @@ fun searchByFirstName(){
     println(employee)
 }
 
-fun getEmployeeByName(): List<Employee> {
+internal fun getEmployeeByName(): List<Employee> {
     print("🔎Enter an employees name to search by: ")
     val employeeName = readLine()!!.toString()
     return employees.findAllName(employeeName)
@@ -247,10 +252,27 @@ fun searchBySurname(){
     println(employee)
 }
 
-fun getEmployeeBySurname(): List<Employee> {
+internal fun getEmployeeBySurname(): List<Employee> {
     print("🔎Enter an employees name to search by: ")
     val employeeSurname = readLine()!!.toString()
     return employees.findAllSurName(employeeSurname)
+}
+
+fun beginWithL(){
+    logger.info{"You are filtering employees whos names begin with L ️"}
+    employees.nameBeginningWith().forEach{ println(it) }
+}
+
+fun beginWithWhatever(){
+    logger.info{"You are searching for an employee by first letter of their name ✏️"}
+    val employee = getEmployeeByFirstLetter()
+    println(employee)
+}
+
+internal fun getEmployeeByFirstLetter(): List<Employee> {
+    print("🔎Enter an First Letter (capitalised) to search by: ")
+    val employeeFirstLetter = readLine()!!.toString()
+    return employees.findByFirstLetter(employeeFirstLetter)
 }
 
 fun dummyData() {
@@ -262,5 +284,5 @@ fun dummyData() {
     employees.create(Employee("Lizzie", "Grogan", 'f', 0, 29000.90, 30.0, 8.2, 2400.0, 140.0))
     employees.create(Employee("Tia", "McLoughlin", 'f', 0, 15000.87, 25.0, 8.1, 45.0, 99.0))
     employees.create(Employee("David", "Quinn", 'm', 0, 88909.89, 45.0, 8.7, 490.0, 70.0))
-    employees.create(Employee("Mary", "Moloney", 'f', 0, 15000.87, 10.0, 7.0, 1700.0, 90.0))
+    employees.create(Employee("Mary", "Moloney", 'f', 0, 15000.99, 10.0, 7.0, 1700.0, 90.0))
 }

@@ -29,8 +29,7 @@ class EmployeeAPI {
     }
 
     fun count(): Int {
-        val count = employees.count()
-        return count
+        return employees.count()
     }
 
     fun findAllSalary(salary: Double): Employee? {
@@ -40,23 +39,27 @@ class EmployeeAPI {
     }
 
     fun sortByBonusAsc(): List<Employee> {
-        val bonusEmployees = employees.sortedBy{it.annualBonus}
-        return bonusEmployees
+        return employees.sortedBy { it.annualBonus }
     }
 
     fun sortByBonusDesc(): List<Employee> {
-        val bonusEmployees = employees.sortedByDescending{it.annualBonus}
-        return bonusEmployees
+        return employees.sortedByDescending { it.annualBonus }
     }
 
     fun findAllName(employeeName: String): List<Employee> {
-        val employeesName = employees.filter { fN -> fN.firstName == employeeName }
-        return employeesName
+        return employees.filter { fN -> fN.firstName == employeeName }
     }
 
     fun findAllSurName(employeeSurname: String): List<Employee> {
-        val employeesSurname = employees.filter { fN -> fN.surname == employeeSurname }
-        return employeesSurname
+        return employees.filter { sN -> sN.surname == employeeSurname }
+    }
+
+    fun nameBeginningWith(): List<Employee> {
+        return employees.filter { it.firstName.startsWith("L") }
+    }
+
+    fun findByFirstLetter(employeeFirstLetter: String): List<Employee> {
+        return employees.filter { fL -> fL.firstName.startsWith(employeeFirstLetter) }
     }
 }
 
