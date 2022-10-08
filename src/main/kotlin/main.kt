@@ -37,6 +37,7 @@ fun menu() : Int {
          |  $magenta | $reset $cyan [7] Count Employees     $reset               $magenta | $reset
          |  $magenta | $reset $cyan [8] Sort by bonus     $reset                 $magenta | $reset
          |  $magenta | $reset $cyan [9] Reduced Payslip     $reset               $magenta | $reset
+         |  $magenta | $reset $cyan [10] Filter Employee by Name     $reset      $magenta | $reset
          |  $magenta | $reset $cyan [-1] Exit  $reset                            $magenta | $reset
          |  $magenta |___________________________________________| $reset
          | $yellow Enter Option >> $reset """.trimMargin())
@@ -80,6 +81,7 @@ fun start() {
             7 -> countEmployees()
             8 -> sortBonus()
             9 -> reducedPaySlip()
+            10 -> searchForEmployee()
             -99 -> dummyData()
             -1 -> logger.info{"You are exiting the app, bye bye 👋"}
             else -> logger.info{"☹️Try a different option, this one doesn't work!"}
@@ -197,6 +199,60 @@ fun reducedPaySlip(){
         println(employee.getReducedPayslip())
 }
 
+//employee search menu
+fun searchForEmployee(){
+    var input: Int
+
+    do {
+        input = filterNameMenu()
+        when (input) {
+            1 -> searchByFirstName()
+            2 -> searchBySurname()
+            -1 -> start()
+            else -> logger.info{"☹️Try a different option, this one doesn't work!"}
+        }
+        println()
+    } while (input != -1)
+}
+
+fun filterNameMenu(): Int {
+    print(
+        """
+    |$magenta |-----------------------------------------------------------------------| $reset
+    |$magenta | $reset$yellow You are in the name searching menu! $reset                                $magenta | $reset
+    |$magenta | $reset$yellow Choose from these options: $reset                                         $magenta | $reset
+    |$magenta |-----------------------------------------------------------------------| $reset
+    |$magenta | $reset $cyan Press 1 to filter by first name   $reset                                 $magenta | $reset
+    |$magenta | $reset $cyan Press 2 to filter by surname   $reset                                    $magenta | $reset
+    |$magenta | $reset $cyan Press -1 to go back to employee menu                              $reset $magenta | $reset
+    |$yellow Choose your option -> $reset"""
+            .trimMargin())
+    return readLine()!!.toInt()
+}
+fun searchByFirstName(){
+    logger.info{"You are searching for an employee by name ✏️"}
+    val employee = getEmployeeByName()
+    println(employee)
+}
+
+fun getEmployeeByName(): List<Employee> {
+    print("🔎Enter an employees name to search by: ")
+    val employeeName = readLine()!!.toString()
+    return employees.findAllName(employeeName)
+}
+
+fun searchBySurname(){
+    logger.info{"You are searching for an employee by name ✏️"}
+    val employee = getEmployeeBySurname()
+    println(employee)
+}
+
+fun getEmployeeBySurname(): List<Employee> {
+    print("🔎Enter an employees name to search by: ")
+    val employeeSurname = readLine()!!.toString()
+    return employees.findAllSurName(employeeSurname)
+}
+
 fun dummyData() {
     employees.create(Employee("Joe", "Soap", 'm', 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
     employees.create(Employee("Joan", "Murphy", 'f', 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
@@ -206,4 +262,5 @@ fun dummyData() {
     employees.create(Employee("Lizzie", "Grogan", 'f', 0, 29000.90, 30.0, 8.2, 2400.0, 140.0))
     employees.create(Employee("Tia", "McLoughlin", 'f', 0, 15000.87, 25.0, 8.1, 45.0, 99.0))
     employees.create(Employee("David", "Quinn", 'm', 0, 88909.89, 45.0, 8.7, 490.0, 70.0))
+    employees.create(Employee("Mary", "Moloney", 'f', 0, 15000.87, 10.0, 7.0, 1700.0, 90.0))
 }

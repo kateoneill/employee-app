@@ -48,4 +48,15 @@ class EmployeeAPI {
         val bonusEmployees = employees.sortedByDescending{it.annualBonus}
         return bonusEmployees
     }
+
+    fun findAllName(employeeName: String): List<Employee> {
+        val employeesName = employees.filter { fN -> fN.firstName == employeeName }
+        return employeesName
+    }
+
+    fun findAllSurName(employeeSurname: String): List<Employee> {
+        val employeesSurname = employees.filter { fN -> fN.surname == employeeSurname }
+        return employeesSurname
+    }
 }
+
