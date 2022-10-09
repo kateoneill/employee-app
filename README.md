@@ -27,11 +27,11 @@ I used intellij to make and run this app out of.
 - Count employees
 
 ## References
-As this was my first Kotlin project I did a ton of research to make my functions work! The link are scattered throughout the code too in comments to know exactly where i looked.
+As this is my first Kotlin project I did a ton of research to make my functions work! The links are scattered throughout the code too in comments to know exactly where I looked.
 
-- To help me add colour to the console output I used: https://discuss.kotlinlang.org/t/printing-in-colors/22492 and to get more ASNI colour variables I used: https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html <br> You can see the declarations on lines 10-13 of src/main/kotlin/main.kt. The usage of these is scattered throughout the other files also
+- To help me add colour to the console output I used: https://discuss.kotlinlang.org/t/printing-in-colors/22492 and to get more ANSI colour variables I used: https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html <br> You can see the declarations on lines 10-13 of src/main/kotlin/main.kt. The usage of these is scattered throughout the other files also
 - To help me with the count function I used: https://www.cosmiclearn.com/kotlin/arraylist.php <br> This is visible on lines 31-34 of /src/main/kotlin/controllers/EmployeeAPI.kt
 - To help me to sort by bonus I referred to:https://www.bezkoder.com/kotlin-sort-list-objects/ <br> This is visible on lines 41-48 of /src/main/kotlin/controllers/EmployeeAPI.kt
 - To help me do all the filters I looked ar : https://kotlinlang.org/docs/collection-filtering.html#test-predicates <br> This is visible on lines 49-63 of  /src/main/kotlin/controllers/EmployeeAPI.kt
 
-Of course, nothing worked without a ton of tweaking and troubleshooting on my behalf until things worked as expected but I looked at all those links to help understand the various functions I used throughout my project.
+Of course, nothing worked without a ton of tweaking and troubleshooting on my behalf until things worked as expected, but I looked at all those links to help understand the various functions I used throughout my project.
